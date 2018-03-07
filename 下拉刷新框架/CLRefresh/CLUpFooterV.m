@@ -134,7 +134,7 @@
         CGFloat scrollOffesetThreshold = scrollViewContentHeight - self.scrollView.bounds.size.height;
         if (!self.scrollView.isDragging && self.upState == CLRefreshUpStateTriggered) {
             self.upState = CLRefreshUpStateLoading;
-        }else if(y > scrollOffesetThreshold && self.upState == CLRefreshUpStateStopped && self.scrollView.isDragging){
+        }else if(y >= scrollOffesetThreshold && self.upState == CLRefreshUpStateStopped && self.scrollView.isDragging){
             self.upState = CLRefreshUpStateTriggered;
         }else if(y < scrollOffesetThreshold && self.upState != CLRefreshUpStateStopped){
             self.upState  = CLRefreshUpStateStopped;

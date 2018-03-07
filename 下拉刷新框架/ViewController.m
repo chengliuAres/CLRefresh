@@ -59,9 +59,11 @@
     __weak typeof(self) me = self;
     _pullHeaderV = [_tableView cl_addPullRefreshControlWithBlock:^{
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            sleep(1.0);
+            sleep(2.0);
             NSLog(@"刷新吧！ 骚年！");
+            [_dataArr removeObjectAtIndex:0];
             dispatch_async(dispatch_get_main_queue(), ^{
+                [me.tableView reloadData];
                 [me.tableView.pullHeaderV endRefresh];
             });
         });
@@ -79,7 +81,7 @@
     [_pullHeaderV setCustomModeView:v2 forState:(CLRefreshStatePulling)];
 
     UIView * v3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
-    v3.backgroundColor = [UIColor greenColor];
+    v3.backgroundColor = [UIColor blueColor];
     [_pullHeaderV setCustomModeView:v3 forState:(CLRefreshStateLoading)];
 
     __block int index  =0;
@@ -87,9 +89,7 @@
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             sleep(2.0);
             NSLog(@"上拉：%d",index++);
-            for (int i =0; i<2; i++) {
-                [_dataArr addObject:@"1"];
-            }
+            [_dataArr addObject:@"1"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [me.tableView reloadData];
                 [me.tableView.footerV endRefresh];
@@ -99,8 +99,12 @@
     }];
     [footerV setTitle:@"上拉加载更多😆" forState:(CLRefreshUpStateStopped)];
     [footerV setTitle:@"加载中..." forState:(CLRefreshUpStateLoading)];
-    [footerV setCustomModeView:v1 forState:(CLRefreshUpStateStopped)];
-    [footerV setCustomModeView:v3 forState:CLRefreshUpStateLoading];
+    UIView * v4 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
+    v4.backgroundColor = [UIColor blackColor];
+    [footerV setCustomModeView:v4 forState:(CLRefreshUpStateStopped)];
+    UIView * v5 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
+    v5.backgroundColor = [UIColor blueColor];
+    [footerV setCustomModeView:v5 forState:CLRefreshUpStateLoading];
     _tableView.backgroundColor = [UIColor yellowColor];
     self.view.backgroundColor = [UIColor lightGrayColor];
     //    __weak typeof(self) me = self;
