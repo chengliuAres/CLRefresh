@@ -29,8 +29,6 @@ static float CLPullHeaderV_Height = 70;
     
     return self.pullHeaderV;
 }
-
-
 -(void)setPullHeaderV:(CLPullHeaderV *)pullHeaderV{
     [self willChangeValueForKey:@"pullHeaderV"];
     objc_setAssociatedObject(self, &UIScrollViewPullHeaderView, pullHeaderV, OBJC_ASSOCIATION_ASSIGN);
